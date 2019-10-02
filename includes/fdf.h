@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/02 16:46:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 23:32:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define PARALLEL -1
 # define POINT_COLOR 0xFFFFFF
 # define TEXT_COLOR 0xFFFFFF
+# define DEFAULT_COORDS_MALLOC 1000
 
 typedef struct			s_point
 {
@@ -60,15 +61,6 @@ typedef struct			s_img_params
 	int					height;
 	t_point				dxy;
 }						t_img_params;
-
-typedef struct			s_3d_coords
-{
-	int					x;
-	int					y;
-	int					z;
-	struct s_3d_coords	*next;
-}						t_3d_coords;
-
 typedef struct			s_map
 {
 	t_point				min;
@@ -81,6 +73,7 @@ typedef struct			s_map
 	int					y_offset;
 	t_point				*inp_coords;
 	t_point				*coords;
+	int					malloc_size;
 	int					width;
 	int					height;
 	float				alpha_x;
@@ -94,39 +87,24 @@ typedef struct			s_fdf
 	t_img_params		img;
 }						t_fdf;
 
-/*
-** --------------------------- Read File Functions ----------------------------
-*/
 
-void					pr_error(char *err_msg);
-void					check_map_width(t_map *map);
-void					read_map(int fd, t_fdf *fdf);
-
-/*
-** --------------------------- Parse Line Functions ----------------------------
-*/
-
-char					is_correct_char(char c);
-void		get_3d_coords(char *line, t_3d_coords **coords, t_fdf *fdf);
-
-/*
-** ----------------------------- List Functions --------------------------------
-*/
-
-t_3d_coords				*ft_create_lst_elem(int x, int y, int z);
-void					ft_list_push_back(t_3d_coords **begin_list, t_3d_coords
-																	*cur_elem);
-void					add_coords_2_lst(t_3d_coords **coords,
-									char *line, t_fdf *fdf);
-void					put_coords_2_arr(t_3d_coords *coords_lst, t_fdf *fdf);
-void					clear_coords_lst(t_3d_coords **coords_lst);
 
 /*
 ** ---------------------------- Print Functions --------------------------------
 */
 
 void					print_curr_params(t_fdf *fdf);
+int			main(int argc, char **argv);
+void				pr_error(char *err_msg);
+void        set_map(t_fdf *fdf, t_point **coords);
+void		read_map(int fd, t_fdf *fdf);
 
+void				add_coords_2_arr(t_point **coords,
+									char *line, t_fdf *fdf);
+void		get_3d_coords(char *line, t_point **coords, t_fdf *fdf);
+char				is_correct_char(char c);
+void				check_map_width(t_map *map);
+void				find_min_max(int x, int y, t_map *map);
 /*
 ** ------------------- Parameters Initialization Functions ---------------------
 */
