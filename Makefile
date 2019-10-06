@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/04 22:15:57 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/06 19:42:07 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,11 @@ includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 
 header := includes/fdf.h
 
-.PHONY: all removelibs lall llall llclean llfclean lfclean oclean clean fclean re
+.PHONY: all loadlibs removelibs lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
 
-$(name): $(lib_dir) lall $(obj_dir) $(objects)
+$(name): loadlibs lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
 	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) -L /usr/local/lib $(lib_flags) 
 
@@ -79,6 +79,11 @@ $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
 	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
+loadlibs:
+	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
+	@./$(load_script) $(repo) $(lib_dir)
+	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
+
 $(lib_dir):
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
 	@./$(load_script) $(repo) $(lib_dir)
@@ -88,13 +93,13 @@ removelibs:
 	@echo "\033[0;35m\033[1m--->Remove Libraries\033[0m"
 	@rm -rf $(lib_dir)
 
-lall: $(lib_dir)
+lall: loadlibs
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
 	@$(MAKE) all --no-print-directory -C $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Finish libraries archieve compilation\033[0m"
 	@echo "\033[0;30m\033[1m--->Finish getting libraries archieve\033[0m"
 
-llall: $(lib_dir)
+llall: loadlibs
 	@$(MAKE) lall --no-print-directory -C $(lib_dir)
 
 llclean: $(lib_dir)

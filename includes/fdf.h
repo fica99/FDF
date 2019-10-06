@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/04 22:17:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/06 21:03:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1000
 # define DEFAULT_COORDS_MALLOC 1000
+# define COLOUR_POINT 0XFF0000
 
 typedef struct			s_point
 {
@@ -40,6 +41,7 @@ typedef struct			s_mlx_params
 	void				*mlx_ptr;
 	void				*win_ptr;
 	void				*img_ptr;	
+	int					*data_addr;
 }						t_mlx_params;
 typedef struct			s_map
 {
@@ -68,4 +70,6 @@ void		check_map_width(int width, int height);
 */
 void		draw_landscape(t_map *map, char *name);
 void		init_win_params(t_mlx_params *mlx, char *name);
+void		draw_line(t_mlx_params *mlx, t_point start, t_point end);
+void	draw_point(t_mlx_params *mlx, t_point point);
 #endif
