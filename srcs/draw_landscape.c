@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/07 22:33:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 23:06:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,30 @@ void	draw_landscape(t_map *map, char *name)
 	t_mlx_params	mlx;
 
 	init_win_params(&mlx, name);
-	map->coords = ft_memcpy((void*)map->coords, (void*)map->inp_coords,
-	map->width * map->height * sizeof(t_point));
-	map->scale = scale_map(map->width, map->height);
-	find_offset(map);
-	put_img(&mlx, map, map->coords);
+	scale_map(map->width, map->height, &map->scale);
+	draw(map, &mlx);
 	fdf.mlx = mlx;
 	fdf.map = map;
 	mlx_hook(mlx.win_ptr, 2, 0, (void*)&key_handler, &fdf);
 	mlx_hook(mlx.win_ptr, 17, 0, (void*)&close_window, &fdf);
 	mlx_loop(mlx.mlx_ptr);
+}
+
+void			draw(t_map *map, t_mlx_params *mlx)
+{
+	int	i;
+	int	size;
+
+	i = -1;
+	size = map->width * map->height;
+	while (++i < size)
+	{
+		map->coords[i].x = map->inp_coords[i].x * map->scale.x;
+		map->coords[i].y = map->inp_coords[i].y * map->scale.y;
+		map->coords[i].z = map->inp_coords[i].z * map->scale.z;
+	}
+	put_img(mlx, map, map->coords);
+
 }
 
 void				init_win_params(t_mlx_params *mlx, char *name)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/07 22:20:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 23:06:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct			s_map
 	t_point				*coords;
 	t_point				*inp_coords;
 	t_point				offset;
+	t_point				scale;
 	int					width;
 	int					height;
-	int					scale;
 }						t_map;
 
 typedef struct 			s_fdf
@@ -81,6 +81,7 @@ void		check_map_width(int width, int height);
 **	draw_landscape.c
 */
 void		draw_landscape(t_map *map, char *name);
+void		draw(t_map *map, t_mlx_params *mlx);
 void		init_win_params(t_mlx_params *mlx, char *name);
 /*
 **	handlers.c
@@ -97,6 +98,5 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 /*
 **	params.c
 */
-int			scale_map(int width, int height);
-void		find_offset(t_map *map);
+void		scale_map(int width, int height, t_point *scale);
 #endif

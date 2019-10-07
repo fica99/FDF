@@ -6,23 +6,19 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/07 22:35:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 23:06:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		scale_map(int width, int height)
+void	scale_map(int width, int height, t_point *scale)
 {
-	int				scale;
+	int				sc;
 
-	if ((scale = fmax(WIN_WIDTH, WIN_HEIGHT) / fmax(width, height)) < 1)
-		scale = 1;
-	return (scale);
-}
-
-void	find_offset(t_map *map)
-{
-	map->offset.x = (WIN_WIDTH - map->width * map->scale) / 2;
-	map->offset.y = (WIN_HEIGHT - map->height * map->scale) / 2;
+	if ((sc = fmax(WIN_WIDTH, WIN_HEIGHT) / fmax(width, height)) < 1)
+		sc = 1;
+	scale->x = sc;
+	scale->y = sc;
+	scale->z = sc;
 }
