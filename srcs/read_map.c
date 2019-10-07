@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/04 22:17:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 20:55:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void		read_map(int fd, t_map *map)
 	while (get_next_line(fd, &line) > 0)
 	{
 		parse_coords(line, &coords, map);
-        check_map_width(map->width, map->height);
+		check_map_width(map->width, map->height);
 		ft_strdel(&line);
 	}
 	if (!coords)
 		pr_error("wrong line from file");
 	map->inp_coords = coords;
-	if (!(map->coords = (t_point*)malloc(sizeof(t_point) * 
+	if (!(map->coords = (t_point*)malloc(sizeof(t_point) *
 	map->height * map->width)))
 		pr_error("memory allocation error");
 }
@@ -42,8 +42,8 @@ void		parse_coords(char *line, t_point **coords, t_map *map)
 	map->width = 0;
 	while (line[++i])
 	{
-        if (line[i] == ' ')
-            continue ;
+		if (line[i] == ' ')
+			continue ;
 		if (is_correct_char(line[i]))
 		{
 			delta = i;
@@ -51,7 +51,7 @@ void		parse_coords(char *line, t_point **coords, t_map *map)
 				++i;
 			add_coords_2_arr(coords, line + delta, map->width, map->height);
 			--i;
-            ++map->width;
+			++map->width;
 		}
 		else
 			pr_error("map error");
@@ -59,13 +59,13 @@ void		parse_coords(char *line, t_point **coords, t_map *map)
 	++map->height;
 }
 
-void    add_coords_2_arr(t_point **coords, char *line, int width, int height)
+void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 {
 	int				z;
 	static int		i;
 	static int		malloc_size;
 	t_point			*copy;
-	
+
 	if (!i)
 	{
 		i = 0;

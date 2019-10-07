@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 21:55:47 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/04 22:17:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 18:58:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int			main(int argc, char **argv)
 		if ((close(fd)) < 0)
 			pr_error("");
 		draw_landscape(&map, name);
-		ft_memdel((void**)&map.inp_coords);
 		ft_memdel((void**)&map.coords);
+		ft_memdel((void**)&map.inp_coords);
 	}
 	return (EXIT_SUCCESS);
 }

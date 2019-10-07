@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/06 21:03:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/07 22:20:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 # define FDF_H
 
 # include "libft.h"
+# include "libdar.h"
+# include "libdir.h"
+# include "libfifo.h"
+# include "libhash.h"
+# include "libstack.h"
+# include "libstr.h"
 # include <fcntl.h>
 # include "mlx.h"
 # include <math.h>
 # include <errno.h>
-# include "get_next_line.h"
 # include <stdio.h>
 # include <limits.h>
 
 # define TRUE 1
 # define FALSE 0
 # define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
+# define WIN_WIDTH 1500
 # define DEFAULT_COORDS_MALLOC 1000
-# define COLOUR_POINT 0XFF0000
+# define COLOUR_POINT 0XFFFFFF
 
 typedef struct			s_point
 {
@@ -40,17 +45,24 @@ typedef struct			s_mlx_params
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
-	void				*img_ptr;	
+	void				*img_ptr;
 	int					*data_addr;
 }						t_mlx_params;
 typedef struct			s_map
 {
-	t_point				*inp_coords;
 	t_point				*coords;
+	t_point				*inp_coords;
+	t_point				offset;
 	int					width;
 	int					height;
+	int					scale;
 }						t_map;
 
+typedef struct 			s_fdf
+{
+	t_map				*map;
+	t_mlx_params		mlx;
+}						t_fdf;
 
 
 /*
@@ -70,6 +82,21 @@ void		check_map_width(int width, int height);
 */
 void		draw_landscape(t_map *map, char *name);
 void		init_win_params(t_mlx_params *mlx, char *name);
+/*
+**	handlers.c
+*/
+void		key_handler(int key, t_fdf *fdf);
+void		close_window(t_fdf *fdf);
+/*
+**	draw.c
+*/
+void		put_img(t_mlx_params *mlx, t_map *map, t_point *coords);
+void		draw_map(t_mlx_params *mlx, t_map *map, t_point *coords);
 void		draw_line(t_mlx_params *mlx, t_point start, t_point end);
-void	draw_point(t_mlx_params *mlx, t_point point);
+void		draw_point(t_mlx_params *mlx, t_point point);
+/*
+**	params.c
+*/
+int			scale_map(int width, int height);
+void		find_offset(t_map *map);
 #endif

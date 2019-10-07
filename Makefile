@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/06 19:42:07 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/07 21:18:53 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,11 @@ load_script := load_git_repo.sh
 lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 srcs_files = fdf.c\
-		  read_map.c\
-		  draw_landscape.c\
+		read_map.c\
+		draw_landscape.c\
+		draw.c\
+		params.c\
+		handlers.c\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -67,7 +70,7 @@ all: $(name)
 
 $(name): loadlibs lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) -L /usr/local/lib $(lib_flags) 
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) -L /usr/local/lib $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
