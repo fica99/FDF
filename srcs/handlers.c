@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:17:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 21:10:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 22:11:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	key_handler(int key, t_fdf *fdf)
 {
-	if (key == 53)
-		exit(EXIT_SUCCESS);
+	key == 53 ? exit(EXIT_SUCCESS) : 0;
+	key == 13 ? fdf->map->angle_x += 0.1 : 0;
+	key == 1 ? fdf->map->angle_x -= 0.1 : 0;
+	key == 0 ? fdf->map->angle_y -= 0.1 : 0;
+	key == 2 ? fdf->map->angle_y += 0.1 : 0;
+	key == 12 ? fdf->map->angle_z -= 0.1 : 0;
+	key == 14 ? fdf->map->angle_z += 0.1 : 0;
 	if (key == 24)
 		if (fdf->map->scale < INT_MAX)
 			++fdf->map->scale;
 	if (key == 27)
 		if (fdf->map->scale > 1)
 			--fdf->map->scale;
-	key == 13 ? fdf->map->angle_x += 0.1 : 0;
-	key == 1 ? fdf->map->angle_x -= 0.1 : 0;
-	key == 0 ? fdf->map->angle_y -= 0.1 : 0;
-	key == 2 ? fdf->map->angle_y += 0.1 : 0;
 	if (key == 34 || key == 35)
 	{
 		fdf->map->proj_type = PARALLEL;
