@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 13:09:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:16:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,20 @@
 # define WIN_WIDTH 1000
 # define DEFAULT_COORDS_MALLOC 1000
 # define COLOUR_POINT 0XFFFFFF
-# define DEFAULT_SCALE 0.6
+# define DEFAULT_SCALE 0.5
+
+typedef	enum			e_proj_type
+{
+	PARALLEL,
+	ISO
+}						t_proj_type;
 
 typedef struct			s_point
 {
 	int					x;
 	int					y;
 	int					z;
+	int					colour;
 }						t_point;
 
 typedef struct			s_mlx_params
@@ -54,7 +61,11 @@ typedef struct			s_map
 	t_point				*coords;
 	t_point				*inp_coords;
 	t_point				offset;
-	t_point				scale;
+	int					scale;
+	t_proj_type			proj_type;
+	float				angle_x;
+	float				angle_y;
+	float				angle_z;
 	int					width;
 	int					height;
 }						t_map;
@@ -75,13 +86,14 @@ void		pr_error(char *err_msg);
 */
 void		read_map(int fd, t_map *map);
 void		parse_coords(char *line, t_point **coords, t_map *map);
-void    	add_coords_2_arr(t_point **coords, char *line, int width, int height);
+void		add_coords_2_arr(t_point **coords, char *line, int width, int height);
 char		is_correct_char(char c);
 void		check_map_width(int width, int height);
 /*
 **	draw_landscape.c
 */
 void		draw_landscape(t_map *map, char *name);
+void		draw(t_map *map, t_mlx_params *mlx);
 void		init_win_params(t_mlx_params *mlx, char *name);
 /*
 **	handlers.c
@@ -91,7 +103,6 @@ void		close_window(t_fdf *fdf);
 /*
 **	draw.c
 */
-void		draw(t_map *map, t_mlx_params *mlx);
 void		put_img(t_mlx_params *mlx, t_map *map, t_point *coords);
 void		draw_map(t_mlx_params *mlx, t_map *map, t_point *coords);
 void		draw_line(t_mlx_params *mlx, t_point start, t_point end);
@@ -99,6 +110,10 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 /*
 **	params.c
 */
-void		scale_map(int width, int height, t_point *scale);
+int			scale_map(int width, int height);
 void		get_offset(t_map *map);
+void		rotation_x(int *y, int *z, float angle_x);
+void		rotation_y(int *x, int *z, float angle_y);
+void		rotation_z(int *x, int *y, float angle_z);
+
 #endif

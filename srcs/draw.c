@@ -6,30 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 13:06:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:24:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void			draw(t_map *map, t_mlx_params *mlx)
-{
-	int	i;
-	int	size;
-
-	i = -1;
-	scale_map(map->width, map->height, &map->scale);
-	get_offset(map);
-	size = map->width * map->height;
-	while (++i < size)
-	{
-		map->coords[i].x = map->inp_coords[i].x * map->scale.x + map->offset.x;
-		map->coords[i].y = map->inp_coords[i].y * map->scale.y + map->offset.y;
-		map->coords[i].z = map->inp_coords[i].z * map->scale.z;
-	}
-	put_img(mlx, map, map->coords);
-
-}
 
 void	put_img(t_mlx_params *mlx, t_map *map, t_point *coords)
 {
@@ -50,16 +31,19 @@ void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
 	{
 		p[0].x = coords[i].x;
 		p[0].y = coords[i].y;
+		p[0].colour = coords[i].colour;
 		if ((i + 1) % map->width != 0)
 		{
 			p[1].x = coords[i + 1].x;
 			p[1].y = coords[i + 1].y;
+			p[1].colour = coords[i + 1].colour;
 			draw_line(mlx, p[0], p[1]);
 		}
 		if (i < size - map->width)
 		{
 			p[1].x = coords[i + map->width].x;
 			p[1].y = coords[i + map->width].y;
+			p[1].colour = coords[i + map->width].colour;
 			draw_line(mlx, p[0], p[1]);
 		}
 	}
@@ -100,7 +84,7 @@ void	draw_point(t_mlx_params *mlx, t_point point)
 
 	i = point.x + point.y * WIN_WIDTH;
 	if (i >= 0 && i < (WIN_HEIGHT * WIN_WIDTH)
-	&& (point.x <= WIN_WIDTH) && (point.y <= WIN_HEIGHT)
+	&& (point.x < WIN_WIDTH) && (point.y < WIN_HEIGHT)
 	&& point.x >= 0 && point.y >= 0)
-		mlx->data_addr[i] = COLOUR_POINT;
+		mlx->data_addr[i] = point.colour;
 }

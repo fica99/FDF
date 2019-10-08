@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/07 20:55:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:26:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 	(*coords)[i].x = width;
 	(*coords)[i].y = height;
 	(*coords)[i].z = z;
+	(*coords)[i].colour = COLOUR_POINT;
 	++i;
 }
 
