@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/07 23:06:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 13:09:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 # define TRUE 1
 # define FALSE 0
 # define WIN_HEIGHT 1000
-# define WIN_WIDTH 1500
+# define WIN_WIDTH 1000
 # define DEFAULT_COORDS_MALLOC 1000
 # define COLOUR_POINT 0XFFFFFF
+# define DEFAULT_SCALE 0.6
 
 typedef struct			s_point
 {
@@ -81,7 +82,6 @@ void		check_map_width(int width, int height);
 **	draw_landscape.c
 */
 void		draw_landscape(t_map *map, char *name);
-void		draw(t_map *map, t_mlx_params *mlx);
 void		init_win_params(t_mlx_params *mlx, char *name);
 /*
 **	handlers.c
@@ -91,6 +91,7 @@ void		close_window(t_fdf *fdf);
 /*
 **	draw.c
 */
+void		draw(t_map *map, t_mlx_params *mlx);
 void		put_img(t_mlx_params *mlx, t_map *map, t_point *coords);
 void		draw_map(t_mlx_params *mlx, t_map *map, t_point *coords);
 void		draw_line(t_mlx_params *mlx, t_point start, t_point end);
@@ -99,4 +100,5 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 **	params.c
 */
 void		scale_map(int width, int height, t_point *scale);
+void		get_offset(t_map *map);
 #endif
