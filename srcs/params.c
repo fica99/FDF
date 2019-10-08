@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 20:13:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:59:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,22 @@ int		scale_map(int width, int height)
 
 void	get_offset(t_map *map)
 {
-	map->offset.x = (WIN_WIDTH - (map->width - 1) * map->scale) / 2;
-	map->offset.y = (WIN_HEIGHT - (map->height - 1) * map->scale) / 2;
+	map->offset.x = abs(map->min.x) + (WIN_WIDTH -
+	abs(map->max.x - map->min.x)) / 2;
+	map->offset.y = (abs(map->min.y) + (WIN_HEIGHT -
+	abs(map->max.y - map->min.y)) / 2) * WIN_WIDTH;
+}
+
+void	min_max(int *x, int *y, t_map *map)
+{
+	if (map->min.x > *x)
+		map->min.x = *x;
+	if (map->min.y > *y)
+		map->min.y = *y;
+	if (map->max.x < *x)
+		map->max.x = *x;
+	if (map->max.y < *y)
+		map->max.y = *y;
 }
 
 void	unset_angl(double *angle_x, double *angle_y, double *angle_z)

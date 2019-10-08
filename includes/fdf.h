@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 20:16:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:59:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct			s_map
 	t_point				*coords;
 	t_point				*inp_coords;
 	t_point				offset;
+	t_point				min;
+	t_point				max;
 	int					scale;
 	t_proj_type			proj_type;
 	double				angle_x;
@@ -112,6 +114,7 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 */
 int			scale_map(int width, int height);
 void		get_offset(t_map *map);
+void		min_max(int *x, int *y, t_map *map);
 void		unset_angl(double *angle_x, double *angle_y, double *angle_z);
 void		iso_proj(int *x, int *y, int z);
 /*
