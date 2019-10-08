@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 20:59:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:02:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@
 # define TRUE 1
 # define FALSE 0
 # define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
+# define WIN_WIDTH 1500
 # define DEFAULT_COORDS_MALLOC 1000
 # define COLOUR_POINT 0XFFFFFF
 # define DEFAULT_SCALE 0.5
+# define PI_32 M_PI_4 / 8
 
 typedef	enum			e_proj_type
 {

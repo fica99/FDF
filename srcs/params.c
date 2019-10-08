@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 20:59:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:01:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int		scale_map(int width, int height)
 
 void	get_offset(t_map *map)
 {
-	map->offset.x = abs(map->min.x) + (WIN_WIDTH -
-	abs(map->max.x - map->min.x)) / 2;
-	map->offset.y = (abs(map->min.y) + (WIN_HEIGHT -
-	abs(map->max.y - map->min.y)) / 2) * WIN_WIDTH;
+	map->offset.x = abs((WIN_WIDTH - abs(map->max.x) - abs(map->min.x)) / 2);
+	map->offset.y = abs((WIN_HEIGHT - abs(map->max.y) - abs(map->min.y)) / 2);
 }
 
 void	min_max(int *x, int *y, t_map *map)

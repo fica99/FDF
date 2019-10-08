@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 22:12:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:09:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	draw_landscape(t_map *map, char *name)
 	init_win_params(&mlx, name);
 	map->proj_type = PARALLEL;
 	unset_angl(&map->angle_x, &map->angle_y, &map->angle_z);
-	map->max.x = map->width;
-	map->max.y = map->height;
 	map->scale = scale_map(map->width, map->height);
 	draw(map, &mlx);
 	fdf.mlx = mlx;
@@ -36,6 +34,10 @@ void			draw(t_map *map, t_mlx_params *mlx)
 	int	i;
 	int	size;
 
+	map->max.x = INT_MIN;
+	map->max.y = INT_MIN;
+	map->min.x = INT_MAX;
+	map->min.y = INT_MAX;
 	i = -1;
 	size = map->width * map->height;
 	while (++i < size)
@@ -51,7 +53,7 @@ void			draw(t_map *map, t_mlx_params *mlx)
 		rotation_z(&(map->coords[i]).x,&(map->coords[i].y), map->angle_z);
 		min_max(&(map->coords[i]).x,&(map->coords[i].y), map);
 	}
-	//get_offset(map);
+	get_offset(map);
 	put_img(mlx, map, map->coords);
 }
 

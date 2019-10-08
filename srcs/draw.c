@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 21:05:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 23:10:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
 	size = map->height * map->width;
 	while (++i < size)
 	{
-		p[0].x = coords[i].x;
-		p[0].y = coords[i].y;
+		p[0].x = coords[i].x + map->offset.x;
+		p[0].y = coords[i].y + map->offset.y;
 		p[0].colour = coords[i].colour;
 		if ((i + 1) % map->width != 0)
 		{
-			p[1].x = coords[i + 1].x;
-			p[1].y = coords[i + 1].y;
+			p[1].x = coords[i + 1].x + map->offset.x;
+			p[1].y = coords[i + 1].y + map->offset.y;
 			p[1].colour = coords[i + 1].colour;
 			draw_line(mlx, p[0], p[1]);
 		}
 		if (i < size - map->width)
 		{
-			p[1].x = coords[i + map->width].x;
-			p[1].y = coords[i + map->width].y;
+			p[1].x = coords[i + map->width].x + map->offset.x;
+			p[1].y = coords[i + map->width].y + map->offset.y;
 			p[1].colour = coords[i + map->width].colour;
 			draw_line(mlx, p[0], p[1]);
 		}
