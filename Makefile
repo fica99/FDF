@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/07 21:18:53 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/08 20:00:43 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ srcs_files = fdf.c\
 		draw.c\
 		params.c\
 		handlers.c\
+		rotation.c\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -37,7 +38,7 @@ obj_files := $(srcs_files:.c=.o)
 
 objects := $(addprefix $(obj_dir)/, $(obj_files))
 
-cc := gcc
+cc := gcc -march=native -mtune=native -flto -Ofast -pipe -funroll-loops
 
 cflags := -Wall -Wextra -Werror
 
@@ -68,9 +69,9 @@ header := includes/fdf.h
 
 all: $(name)
 
-$(name): loadlibs lall $(obj_dir) $(objects)
+$(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) -L /usr/local/lib $(lib_flags)
+	@$(cc) $(objects) -o $@ -L $(lib_archive) -L /usr/local/lib $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -80,7 +81,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
+	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
 loadlibs:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
@@ -96,13 +97,13 @@ removelibs:
 	@echo "\033[0;35m\033[1m--->Remove Libraries\033[0m"
 	@rm -rf $(lib_dir)
 
-lall: loadlibs
+lall: $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
 	@$(MAKE) all --no-print-directory -C $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Finish libraries archieve compilation\033[0m"
 	@echo "\033[0;30m\033[1m--->Finish getting libraries archieve\033[0m"
 
-llall: loadlibs
+llall: $(lib_dir)
 	@$(MAKE) lall --no-print-directory -C $(lib_dir)
 
 llclean: $(lib_dir)

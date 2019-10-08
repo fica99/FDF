@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 19:32:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:20:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void			draw(t_map *map, t_mlx_params *mlx)
 		map->coords[i].y = map->inp_coords[i].y * map->scale + map->offset.y;
 		map->coords[i].z = map->inp_coords[i].z * map->scale;
 		map->coords[i].colour = map->inp_coords[i].colour;
+		if (map->proj_type == ISO)
+			iso_proj(&map->coords[i].x, &map->coords[i].y, map->coords[i].z);
 		rotation_x(&(map->coords[i].y), &(map->coords[i].z), map->angle_x);
 		rotation_y(&map->coords[i].x, &(map->coords[i].z), map->angle_y);
 		rotation_z(&(map->coords[i]).x,&(map->coords[i].y), map->angle_z);

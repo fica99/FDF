@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 19:16:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:16:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ typedef struct			s_map
 	t_point				offset;
 	int					scale;
 	t_proj_type			proj_type;
-	float				angle_x;
-	float				angle_y;
-	float				angle_z;
+	double				angle_x;
+	double				angle_y;
+	double				angle_z;
 	int					width;
 	int					height;
 }						t_map;
@@ -112,8 +112,12 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 */
 int			scale_map(int width, int height);
 void		get_offset(t_map *map);
+void		unset_angl(double *angle_x, double *angle_y, double *angle_z);
+void		iso_proj(int *x, int *y, int z);
+/*
+**	rotation.c
+*/
 void		rotation_x(int *y, int *z, float angle_x);
 void		rotation_y(int *x, int *z, float angle_y);
 void		rotation_z(int *x, int *y, float angle_z);
-
 #endif

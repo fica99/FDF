@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 18:55:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/08 20:13:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,20 @@ void	get_offset(t_map *map)
 	map->offset.y = (WIN_HEIGHT - (map->height - 1) * map->scale) / 2;
 }
 
-void	rotation_x(int *y, int *z, float angle_x)
+void	unset_angl(double *angle_x, double *angle_y, double *angle_z)
 {
-	int				y_copy;
-	int				z_copy;
-	y_copy = *y;
-	z_copy = *z;
-	*y = y_copy * cos(angle_x) + z_copy * sin(angle_x);
-	*z = -y_copy * sin(angle_x) + z_copy * cos(angle_x);
+	*angle_x = 0;
+	*angle_y = 0;
+	*angle_z = 0;
 }
 
-void	rotation_y(int *x, int *z, float angle_y)
+void	iso_proj(int *x, int *y, int z)
 {
-	int				x_copy;
-	int				z_copy;
+	int previous_x;
+	int previous_y;
 
-	x_copy = *x;
-	z_copy = *z;
-	*x = x_copy * cos(angle_y) + z_copy * sin(angle_y);
-	*z = -x_copy * sin(angle_y) + z_copy * cos(angle_y);
-}
-
-void	rotation_z(int *x, int *y, float angle_z)
-{
-	int				x_copy;
-	int				y_copy;
-
-	x_copy = *x;
-	y_copy = *y;
-	*x = x_copy * cos(angle_z) - y_copy * sin(angle_z);
-	*y = -x_copy * sin(angle_z) + y_copy * cos(angle_z);
+	previous_x = *x;
+	previous_y = *y;
+	*x = (previous_x - previous_y) * cos(0.523599);
+	*y = -z + (previous_x + previous_y) * sin(0.523599);
 }
