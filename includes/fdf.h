@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/09 18:40:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:55:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define FALSE 0
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1500
-# define DEFAULT_COORDS_MALLOC 1000
+# define D_CRDS_S 1000
 # define COLOUR_POINT 0XFFFFFF
 # define DEFAULT_SCALE 0.5
 # define PI_32 M_PI_4 / 8
@@ -73,62 +73,68 @@ typedef struct			s_map
 	double				angle_y;
 	int					width;
 	int					height;
+	double				z_change;
 }						t_map;
 
-typedef struct 			s_fdf
+typedef struct			s_fdf
 {
 	t_map				*map;
 	t_mlx_params		mlx;
 }						t_fdf;
-
-
 /*
 **	fdf.c
 */
-void		pr_error(char *err_msg);
+void					pr_error(char *err_msg);
 /*
 **	read_map.c
 */
-void		read_map(int fd, t_map *map);
-void		parse_coords(char *line, t_point **coords, t_map *map);
-void		add_coords_2_arr(t_point **coords, char *line, int width, int height);
-char		is_correct_char(char c);
-void		check_map_width(int width, int height);
+void					read_map(int fd, t_map *map);
+void					parse_coords(char *line, t_point **coords, t_map *map);
+void					add_coords_2_arr(t_point **coords, char *line,
+int width, int height);
+char					is_correct_char(char c);
+void					check_map_width(int width, int height);
 /*
 **	draw_landscape.c
 */
-void		draw_landscape(t_map *map, char *name);
-void		draw(t_map *map, t_mlx_params *mlx);
-void		init_win_params(t_mlx_params *mlx, char *name);
+void					draw_landscape(t_map *map, char *name);
+void					draw(t_map *map, t_mlx_params *mlx);
+void					rotation_x(int *y, int *z, double angle_x);
+void					rotation_y(int *x, int *z, double angle_y);
 /*
 **	handlers.c
 */
-void		key_handler(int key, t_fdf *fdf);
-void		close_window(t_fdf *fdf);
+void					key_handler(int key, t_fdf *fdf);
+void					close_window(t_fdf *fdf);
 /*
 **	draw.c
 */
-void		put_img(t_mlx_params *mlx, t_map *map, t_point *coords);
-void		draw_map(t_mlx_params *mlx, t_map *map, t_point *coords);
-void		draw_line(t_mlx_params *mlx, t_point start, t_point end);
-void		draw_point(t_mlx_params *mlx, t_point point);
+void					put_img(t_mlx_params *mlx, t_map *map, t_point *coords);
+void					draw_map(t_mlx_params *mlx, t_map *map,
+t_point *coords);
+void					draw_line(t_mlx_params *mlx, t_point start,
+t_point end);
+void					draw_point(t_mlx_params *mlx, t_point point);
 /*
 **	params.c
 */
-int			scale_map(int width, int height);
-void		get_offset(t_map *map);
-void		min_max(int x, int y, t_map *map);
-void		unset_angl(double *angle_x, double *angle_y);
-void		iso_proj(int *x, int *y, int z);
-/*
-**	rotation.c
-*/
-void		rotation_x(int *y, int *z, double angle_x);
-void		rotation_y(int *x, int *z, double angle_y);
+void					min_max(int x, int y, t_map *map);
+void					unset_angl(double *angle_x, double *angle_y);
+void					iso_proj(int *x, int *y, int z);
+int						scale_map(int width, int height);
+void					get_offset(t_map *map);
 /*
 **	linear_gradient.c
 */
-double		percent(int start, int end, int current);
-int 		get_light(int start, int end, double percentage);
-int 		get_color(t_point current, t_point start, t_point end, t_point delta);
+double					percent(int start, int end, int current);
+int						get_light(int start, int end, double percentage);
+int						get_color(t_point current, t_point start, t_point end,
+t_point delta);
+/*
+**	init_params.c
+*/
+void					init_win_params(t_mlx_params *mlx, char *name);
+void					copy_point(t_point *a, t_point b);
+void					init_draw_line_params(t_point *delta, t_point *sign,
+t_point start, t_point end);
 #endif

@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 21:55:47 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 19:25:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:01:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void				pr_error(char *err_msg)
+void		pr_error(char *err_msg)
 {
 	perror(err_msg);
 	exit(EXIT_FAILURE);
@@ -28,7 +28,7 @@ int			main(int argc, char **argv)
 		ft_putendl("Usage : ./fdf <filename>");
 	else
 	{
-		if (!(name = ft_strrchr(argv[1],'/')))
+		if (!(name = ft_strrchr(argv[1], '/')))
 			name = argv[1];
 		else
 			++name;

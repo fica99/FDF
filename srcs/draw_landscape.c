@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/09 18:40:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:54:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_landscape(t_map *map, char *name)
 	mlx_loop(mlx.mlx_ptr);
 }
 
-void			draw(t_map *map, t_mlx_params *mlx)
+void	draw(t_map *map, t_mlx_params *mlx)
 {
 	int	i;
 	int	size;
@@ -56,15 +56,24 @@ void			draw(t_map *map, t_mlx_params *mlx)
 	put_img(mlx, map, map->coords);
 }
 
-void				init_win_params(t_mlx_params *mlx, char *name)
+void	rotation_x(int *y, int *z, double angle_x)
 {
-	if (!(mlx->mlx_ptr = mlx_init()))
-		pr_error("mlx_init error");
-	if (!(mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, name)))
-		pr_error("mlx_new_window error");
-	if (!(mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT)))
-		pr_error("mlx_new_image error");
-	if (!(mlx->data_addr = (int*)mlx_get_data_addr(mlx->img_ptr,
-	&mlx->bits_per_pixel, &mlx->size_line, &mlx->endian)))
-		pr_error("mlx_get_data_addr error");
+	int				y_copy;
+	int				z_copy;
+
+	y_copy = *y;
+	z_copy = *z;
+	*y = y_copy * cos(angle_x) + z_copy * sin(angle_x);
+	*z = -y_copy * sin(angle_x) + z_copy * cos(angle_x);
+}
+
+void	rotation_y(int *x, int *z, double angle_y)
+{
+	int				x_copy;
+	int				z_copy;
+
+	x_copy = *x;
+	z_copy = *z;
+	*x = x_copy * cos(angle_y) + z_copy * sin(angle_y);
+	*z = -x_copy * sin(angle_y) + z_copy * cos(angle_y);
 }

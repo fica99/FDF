@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 19:26:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:05:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		read_map(int fd, t_map *map)
+void	read_map(int fd, t_map *map)
 {
 	char	*line;
 	t_point	*coords;
@@ -33,7 +33,7 @@ void		read_map(int fd, t_map *map)
 		pr_error("memory allocation error");
 }
 
-void		parse_coords(char *line, t_point **coords, t_map *map)
+void	parse_coords(char *line, t_point **coords, t_map *map)
 {
 	int		i;
 	int		delta;
@@ -63,20 +63,20 @@ void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 {
 	int				z;
 	static int		i;
-	static int		malloc_size;
+	static int		m_size;
 	t_point			*copy;
 
 	if (!i)
 	{
 		i = 0;
-		malloc_size = 0;
+		m_size = 0;
 	}
-	if (malloc_size <= i)
+	if (m_size <= i)
 	{
-		if (!(copy = (t_point*)malloc(sizeof(t_point) * (malloc_size +=
-		DEFAULT_COORDS_MALLOC))))
+		if (!(copy = (t_point*)malloc(sizeof(t_point) * (m_size += D_CRDS_S))))
 			pr_error("memory allocation error");
-		copy = (t_point*)ft_memcpy((void*)copy, (void*)*coords, i * sizeof(t_point));
+		copy = (t_point*)ft_memcpy((void*)copy, (void*)*coords,
+		i * sizeof(t_point));
 		ft_memdel((void**)coords);
 		*coords = copy;
 	}
@@ -88,14 +88,14 @@ void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 	++i;
 }
 
-char				is_correct_char(char c)
+char	is_correct_char(char c)
 {
 	if (ft_isdigit(c) || c == '-')
 		return (TRUE);
 	return (FALSE);
 }
 
-void				check_map_width(int width, int height)
+void	check_map_width(int width, int height)
 {
 	static int		old_width;
 

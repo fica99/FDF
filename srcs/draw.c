@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 23:10:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 20:57:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ void	put_img(t_mlx_params *mlx, t_map *map, t_point *coords)
 void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
 {
 	int		i;
-	int		size;
 	t_point	p[2];
 
 	i = -1;
-	size = map->height * map->width;
-	while (++i < size)
+	while (++i < map->height * map->width)
 	{
 		p[0].x = coords[i].x + map->offset.x;
 		p[0].y = coords[i].y + map->offset.y;
@@ -39,7 +37,7 @@ void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
 			p[1].colour = coords[i + 1].colour;
 			draw_line(mlx, p[0], p[1]);
 		}
-		if (i < size - map->width)
+		if (i < (map->height - 1) * map->width)
 		{
 			p[1].x = coords[i + map->width].x + map->offset.x;
 			p[1].y = coords[i + map->width].y + map->offset.y;
@@ -53,27 +51,27 @@ void	draw_line(t_mlx_params *mlx, t_point start, t_point end)
 {
 	t_point	delta;
 	t_point sign;
+	t_point	cur;
 	int		error[2];
 
-	delta.x = abs(end.x - start.x);
-	delta.y = abs(end.y - start.y);
+	init_draw_line_params(&delta, &sign, start, end);
 	error[0] = delta.x - delta.y;
-	sign.x = (end.x - start.x) > 0 ? 1 : -1;
-	sign.y = (end.y - start.y) > 0 ? 1 : -1;
 	draw_point(mlx, end);
-	while (start.x != end.x || start.y != end.y)
+	copy_point(&cur, start);
+	while (cur.x != end.x || cur.y != end.y)
 	{
-		draw_point(mlx, start);
+		cur.colour = get_color(cur, start, end, delta);
+		draw_point(mlx, cur);
 		error[1] = 2 * error[0];
 		if (error[1] > -delta.y)
 		{
 			error[0] -= delta.y;
-			start.x += sign.x;
+			cur.x += sign.x;
 		}
 		if (error[1] < delta.x)
 		{
 			error[0] += delta.x;
-			start.y += sign.y;
+			cur.y += sign.y;
 		}
 	}
 }

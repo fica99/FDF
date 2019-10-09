@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:58:17 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/09 18:04:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:03:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ double	percent(int start, int end, int current)
 	return ((distance == 0) ? 1.0 : (placement / distance));
 }
 
-int 	get_light(int start, int end, double percentage)
+int		get_light(int start, int end, double percentage)
 {
 	return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int 	get_color(t_point current, t_point start, t_point end, t_point delta)
+int		get_color(t_point current, t_point start, t_point end, t_point delta)
 {
 	int		red;
 	int		green;
@@ -40,8 +40,10 @@ int 	get_color(t_point current, t_point start, t_point end, t_point delta)
 		percentage = percent(start.x, end.x, current.x);
 	else
 		percentage = percent(start.y, end.y, current.y);
-	red = get_light((start.colour >> 16) & 0xFF, (end.colour >> 16) & 0xFF, percentage);
-	green = get_light((start.colour >> 8) & 0xFF, (end.colour >> 8) & 0xFF, percentage);
+	red = get_light((start.colour >> 16) & 0xFF, (end.colour >> 16) & 0xFF,
+	percentage);
+	green = get_light((start.colour >> 8) & 0xFF, (end.colour >> 8) & 0xFF,
+	percentage);
 	blue = get_light(start.colour & 0xFF, end.colour & 0xFF, percentage);
 	return ((red << 16) | (green << 8) | blue);
 }

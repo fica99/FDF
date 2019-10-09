@@ -6,29 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/09 16:38:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 21:05:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int		scale_map(int width, int height)
-{
-	int	x;
-	int	y;
-
-	x = DEFAULT_SCALE * WIN_WIDTH / width;
-	y = DEFAULT_SCALE * WIN_HEIGHT / height;
-	return (fmax(x, y) > 1 ? fmax(x,y) : 1);
-}
-
-void	get_offset(t_map *map)
-{
-	map->offset.x = (WIN_WIDTH - abs(map->max.x - map->min.x)) / 2
-	+ abs(map->min.x);
-	map->offset.y = (WIN_HEIGHT - abs(map->max.y - map->min.y)) / 2
-	+ abs(map->min.y);
-}
 
 void	min_max(int x, int y, t_map *map)
 {
@@ -57,4 +39,22 @@ void	iso_proj(int *x, int *y, int z)
 	previous_y = *y;
 	*x = (previous_x - previous_y) * cos(0.523599);
 	*y = -z + (previous_x + previous_y) * sin(0.523599);
+}
+
+int		scale_map(int width, int height)
+{
+	int	x;
+	int	y;
+
+	x = DEFAULT_SCALE * WIN_WIDTH / width;
+	y = DEFAULT_SCALE * WIN_HEIGHT / height;
+	return (fmax(x, y) > 1 ? fmax(x, y) : 1);
+}
+
+void	get_offset(t_map *map)
+{
+	map->offset.x = (WIN_WIDTH - abs(map->max.x - map->min.x)) / 2
+	+ abs(map->min.x);
+	map->offset.y = (WIN_HEIGHT - abs(map->max.y - map->min.y)) / 2
+	+ abs(map->min.y);
 }
