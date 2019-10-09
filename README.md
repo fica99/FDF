@@ -7,8 +7,6 @@ Full description in [subject file](https://cdn.intra.42.fr/pdf/pdf/1803/fdf.en.p
 ## Compilation
 
 * `make` \- executable file compilation\.
-* `make loadlibs` \- download libraries\.
-* `make removelibs` \- remove libraries\.
 * `make all` \- same as `make`\.
 * `make fclean` \- removing objects directory, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory) and executable file\.
 * `make clean` \- removing objects directory, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory)\.
