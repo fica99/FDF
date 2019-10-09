@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/09 22:20:19 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/09 22:45:49 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 
 $(mlx):
 	@echo "\033[0;30m\033[1m--->Start compiling minilibx library\033[0m"
-	@make --no-print-directory -C minilibx_macos
+	@$(MAKE) --no-print-directory -C minilibx_macos
 	@echo "\033[0;30m\033[1m--->Finish minilibx library compilation\033[0m"
 
 lall:
@@ -112,6 +112,7 @@ oclean:
 clean:
 	@$(MAKE) --no-print-directory oclean
 	@$(MAKE) --no-print-directory lfclean
+	@echo "\033[36m\033[1m--->Clean minilibx library\033[0m"
 	@$(MAKE) clean --no-print-directory -C minilibx_macos
 
 fclean:
