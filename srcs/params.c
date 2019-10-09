@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 19:38:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 23:01:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 16:38:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,28 @@ int		scale_map(int width, int height)
 
 void	get_offset(t_map *map)
 {
-	map->offset.x = abs((WIN_WIDTH - abs(map->max.x) - abs(map->min.x)) / 2);
-	map->offset.y = abs((WIN_HEIGHT - abs(map->max.y) - abs(map->min.y)) / 2);
+	map->offset.x = (WIN_WIDTH - abs(map->max.x - map->min.x)) / 2
+	+ abs(map->min.x);
+	map->offset.y = (WIN_HEIGHT - abs(map->max.y - map->min.y)) / 2
+	+ abs(map->min.y);
 }
 
-void	min_max(int *x, int *y, t_map *map)
+void	min_max(int x, int y, t_map *map)
 {
-	if (map->min.x > *x)
-		map->min.x = *x;
-	if (map->min.y > *y)
-		map->min.y = *y;
-	if (map->max.x < *x)
-		map->max.x = *x;
-	if (map->max.y < *y)
-		map->max.y = *y;
+	if (map->min.x > x)
+		map->min.x = x;
+	if (map->min.y > y)
+		map->min.y = y;
+	if (map->max.x < x)
+		map->max.x = x;
+	if (map->max.y < y)
+		map->max.y = y;
 }
 
-void	unset_angl(double *angle_x, double *angle_y, double *angle_z)
+void	unset_angl(double *angle_x, double *angle_y)
 {
 	*angle_x = 0;
 	*angle_y = 0;
-	*angle_z = 0;
 }
 
 void	iso_proj(int *x, int *y, int z)

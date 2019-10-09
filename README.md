@@ -22,6 +22,8 @@ Full description in [subject file](https://cdn.intra.42.fr/pdf/pdf/1803/fdf.en.p
 
 ## Usage
 
+Woorks only on MacOS\.
+
 >make
 
 >./fdf \<filename\>
@@ -36,8 +38,6 @@ Full description in [subject file](https://cdn.intra.42.fr/pdf/pdf/1803/fdf.en.p
 * Key `s` to rotate down around the x axis\.
 * Key `a` to rotate left around the y axis\.
 * Key `d` to rotate right around the y axis\.
-* Key `q` to rotate around the z axis\.
-* Key `e` to rotate around the z axis\.
 
 ## Created with:
 

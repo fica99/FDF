@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/08 23:02:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 18:40:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct			s_mlx_params
 	void				*win_ptr;
 	void				*img_ptr;
 	int					*data_addr;
+	int					size_line;
+	int					endian;
+	int					bits_per_pixel;
 }						t_mlx_params;
 typedef struct			s_map
 {
@@ -68,7 +71,6 @@ typedef struct			s_map
 	t_proj_type			proj_type;
 	double				angle_x;
 	double				angle_y;
-	double				angle_z;
 	int					width;
 	int					height;
 }						t_map;
@@ -115,13 +117,18 @@ void		draw_point(t_mlx_params *mlx, t_point point);
 */
 int			scale_map(int width, int height);
 void		get_offset(t_map *map);
-void		min_max(int *x, int *y, t_map *map);
-void		unset_angl(double *angle_x, double *angle_y, double *angle_z);
+void		min_max(int x, int y, t_map *map);
+void		unset_angl(double *angle_x, double *angle_y);
 void		iso_proj(int *x, int *y, int z);
 /*
 **	rotation.c
 */
-void		rotation_x(int *y, int *z, float angle_x);
-void		rotation_y(int *x, int *z, float angle_y);
-void		rotation_z(int *x, int *y, float angle_z);
+void		rotation_x(int *y, int *z, double angle_x);
+void		rotation_y(int *x, int *z, double angle_y);
+/*
+**	linear_gradient.c
+*/
+double		percent(int start, int end, int current);
+int 		get_light(int start, int end, double percentage);
+int 		get_color(t_point current, t_point start, t_point end, t_point delta);
 #endif

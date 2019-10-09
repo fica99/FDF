@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/08 23:09:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/09 18:40:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_landscape(t_map *map, char *name)
 
 	init_win_params(&mlx, name);
 	map->proj_type = PARALLEL;
-	unset_angl(&map->angle_x, &map->angle_y, &map->angle_z);
+	unset_angl(&map->angle_x, &map->angle_y);
 	map->scale = scale_map(map->width, map->height);
 	draw(map, &mlx);
 	fdf.mlx = mlx;
@@ -46,12 +46,11 @@ void			draw(t_map *map, t_mlx_params *mlx)
 		map->coords[i].y = map->inp_coords[i].y * map->scale;
 		map->coords[i].z = map->inp_coords[i].z * map->scale;
 		map->coords[i].colour = map->inp_coords[i].colour;
-		if (map->proj_type == ISO)
-			iso_proj(&map->coords[i].x, &map->coords[i].y, map->coords[i].z);
 		rotation_x(&(map->coords[i].y), &(map->coords[i].z), map->angle_x);
 		rotation_y(&map->coords[i].x, &(map->coords[i].z), map->angle_y);
-		rotation_z(&(map->coords[i]).x,&(map->coords[i].y), map->angle_z);
-		min_max(&(map->coords[i]).x,&(map->coords[i].y), map);
+		if (map->proj_type == ISO)
+			iso_proj(&map->coords[i].x, &map->coords[i].y, map->coords[i].z);
+		min_max(map->coords[i].x, map->coords[i].y, map);
 	}
 	get_offset(map);
 	put_img(mlx, map, map->coords);
@@ -59,17 +58,13 @@ void			draw(t_map *map, t_mlx_params *mlx)
 
 void				init_win_params(t_mlx_params *mlx, char *name)
 {
-	int	bits_per_pixel;
-	int	size_line;
-	int	endian;
-
 	if (!(mlx->mlx_ptr = mlx_init()))
 		pr_error("mlx_init error");
 	if (!(mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, name)))
 		pr_error("mlx_new_window error");
 	if (!(mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, WIN_WIDTH, WIN_HEIGHT)))
 		pr_error("mlx_new_image error");
-	if (!(mlx->data_addr = (int*)mlx_get_data_addr(mlx->img_ptr, &bits_per_pixel,
-	&size_line, &endian)))
+	if (!(mlx->data_addr = (int*)mlx_get_data_addr(mlx->img_ptr,
+	&mlx->bits_per_pixel, &mlx->size_line, &mlx->endian)))
 		pr_error("mlx_get_data_addr error");
 }

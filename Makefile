@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/08 20:00:43 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/09 16:58:53 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ srcs_files = fdf.c\
 		params.c\
 		handlers.c\
 		rotation.c\
+		linear_gradient.c\
 
 .LIBPATTERNS := "lib%.a"
 
