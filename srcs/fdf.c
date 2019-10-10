@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 21:55:47 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/09 21:01:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 22:33:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			main(int argc, char **argv)
 	char	*name;
 
 	if (argc != 2)
-		ft_putendl("Usage : ./fdf <filename>");
+		pr_error("Usage : ./fdf <filename>\n");
 	else
 	{
 		if (!(name = ft_strrchr(argv[1], '/')))
@@ -33,10 +33,10 @@ int			main(int argc, char **argv)
 		else
 			++name;
 		if ((fd = open(argv[1], O_RDONLY)) < 0)
-			pr_error("");
+			pr_error("Open error");
 		read_map(fd, &map);
 		if ((close(fd)) < 0)
-			pr_error("");
+			pr_error("Close error");
 		draw_landscape(&map, name);
 		ft_memdel((void**)&map.coords);
 		ft_memdel((void**)&map.inp_coords);

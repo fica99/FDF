@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/10 19:34:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 23:10:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@
 # define FALSE 0
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1500
-# define D_CRDS_S 1000
+# define D_CRDS_S 5000000
 # define WHITE 0XFFFFFF
 # define YELLOW 0XFFF000
 # define RED 0XFF0000
 # define DEFAULT_SCALE 0.5
 # define PI_32 M_PI_4 / 8
+# define PI_6 M_PI_2 / 3
 
 typedef	enum			e_proj_type
 {
@@ -94,7 +95,7 @@ void					read_map(int fd, t_map *map);
 void					parse_coords(char *line, t_point **coords, t_map *map);
 void					add_coords_2_arr(t_point **coords, char *line,
 int width, int height);
-char					is_correct_char(char c);
+int						parse_colour(char *str);
 void					check_map_width(int width, int height);
 /*
 **	draw_landscape.c

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/10 19:26:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 23:33:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	rotation_x(int *y, int *z, double angle_x)
 	int				y_copy;
 	int				z_copy;
 
+	if (angle_x == 0.0)
+		return ;
 	y_copy = *y;
 	z_copy = *z;
 	*y = y_copy * cos(angle_x) + z_copy * sin(angle_x);
@@ -74,6 +76,8 @@ void	rotation_y(int *x, int *z, double angle_y)
 	int				x_copy;
 	int				z_copy;
 
+	if (angle_y == 0.0)
+		return ;
 	x_copy = *x;
 	z_copy = *z;
 	*x = x_copy * cos(angle_y) + z_copy * sin(angle_y);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 13:03:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 21:09:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 22:32:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE 20
+# define BUFF_SIZE 20000
 
 int		get_next_line(const int fd, char **line);
 #endif
