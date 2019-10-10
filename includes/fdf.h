@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/09 21:55:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:34:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1500
 # define D_CRDS_S 1000
-# define COLOUR_POINT 0XFFFFFF
+# define WHITE 0XFFFFFF
+# define YELLOW 0XFFF000
+# define RED 0XFF0000
 # define DEFAULT_SCALE 0.5
 # define PI_32 M_PI_4 / 8
 
@@ -73,7 +75,7 @@ typedef struct			s_map
 	double				angle_y;
 	int					width;
 	int					height;
-	double				z_change;
+	int					colour;
 }						t_map;
 
 typedef struct			s_fdf
@@ -131,10 +133,12 @@ int						get_light(int start, int end, double percentage);
 int						get_color(t_point current, t_point start, t_point end,
 t_point delta);
 /*
-**	init_params.c
+**	params_other.c
 */
 void					init_win_params(t_mlx_params *mlx, char *name);
 void					copy_point(t_point *a, t_point b);
 void					init_draw_line_params(t_point *delta, t_point *sign,
 t_point start, t_point end);
+void					print_options(t_map *map, t_mlx_params *mlx);
+void					print_keys(t_mlx_params *mlx);
 #endif

@@ -30,12 +30,15 @@ Woorks only on MacOS\.
 
 * Key `+` to increase\.
 * Key `-` to decrease\.
-* Key `p` to see parallel projection\.
-* Key `i` to see isometric projection\.
-* Key `w` to rotate up around the x axis\.
-* Key `s` to rotate down around the x axis\.
-* Key `a` to rotate left around the y axis\.
-* Key `d` to rotate right around the y axis\.
+* Key `P` to see parallel projection\.
+* Key `I` to see isometric projection\.
+* Key `W` to rotate up around the x axis\.
+* Key `S` to rotate down around the x axis\.
+* Key `A` to rotate left around the y axis\.
+* Key `D` to rotate right around the y axis\.
+* Key `Y` set yellow colour\.
+* Key `R` set red colour\.
+* Key `T` set standart colour\.
 
 ## Created with:
 

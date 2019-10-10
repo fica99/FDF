@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/09 22:45:49 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/10 18:28:55 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ srcs_files = fdf.c\
 		draw.c\
 		params.c\
 		handlers.c\
-		init_params.c\
+		params_other.c\
 		linear_gradient.c\
 
 .LIBPATTERNS := "lib%.a"

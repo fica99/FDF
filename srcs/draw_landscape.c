@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/09 21:54:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:26:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	draw_landscape(t_map *map, char *name)
 	map->proj_type = PARALLEL;
 	unset_angl(&map->angle_x, &map->angle_y);
 	map->scale = scale_map(map->width, map->height);
+	map->colour = WHITE;
 	draw(map, &mlx);
 	fdf.mlx = mlx;
 	fdf.map = map;
@@ -45,7 +46,8 @@ void	draw(t_map *map, t_mlx_params *mlx)
 		map->coords[i].x = map->inp_coords[i].x * map->scale;
 		map->coords[i].y = map->inp_coords[i].y * map->scale;
 		map->coords[i].z = map->inp_coords[i].z * map->scale;
-		map->coords[i].colour = map->inp_coords[i].colour;
+		if (!(map->coords[i].colour = map->inp_coords[i].colour))
+			map->coords[i].colour = map->colour;
 		rotation_x(&(map->coords[i].y), &(map->coords[i].z), map->angle_x);
 		rotation_y(&map->coords[i].x, &(map->coords[i].z), map->angle_y);
 		if (map->proj_type == ISO)

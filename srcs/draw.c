@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/09 20:57:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/10 19:26:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	put_img(t_mlx_params *mlx, t_map *map, t_point *coords)
 	draw_map(mlx, map, coords);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr,
 	0, 0);
+	print_options(map, mlx);
 }
 
 void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
