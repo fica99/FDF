@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/10 23:24:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/11 18:18:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ void	draw_line(t_mlx_params *mlx, t_point start, t_point end)
 	t_point	cur;
 	int		error[2];
 
-	init_draw_line_params(&delta, &sign, start, end);
+	delta.x = abs(end.x - start.x);
+	delta.y = abs(end.y - start.y);
+	sign.x = (end.x - start.x) > 0 ? 1 : -1;
+	sign.y = (end.y - start.y) > 0 ? 1 : -1;
 	error[0] = delta.x - delta.y;
-	draw_point(mlx, end);
-	copy_point(&cur, start);
+	cur = start;
 	while (cur.x != end.x || cur.y != end.y)
 	{
-		cur.colour = get_color(cur, start, end, delta);
-		draw_point(mlx, cur);
-		error[1] = 2 * error[0];
-		if (error[1] > -delta.y)
+		put_pixel(mlx, cur.x, cur.y, get_color(cur, start, end, delta));
+		if ((error[1] = 2 * error[0]) > -delta.y)
 		{
 			error[0] -= delta.y;
 			cur.x += sign.x;
@@ -77,13 +77,21 @@ void	draw_line(t_mlx_params *mlx, t_point start, t_point end)
 	}
 }
 
-void	draw_point(t_mlx_params *mlx, t_point point)
+void	put_pixel(t_mlx_params *mlx, int x, int y, int colour)
 {
 	int	i;
+	int	bytes;
 
-	i = point.x + point.y * WIN_WIDTH;
-	if (i >= 0 && i < (WIN_HEIGHT * WIN_WIDTH)
-	&& (point.x < WIN_WIDTH) && (point.y < WIN_HEIGHT)
-	&& point.x >= 0 && point.y >= 0)
-		mlx->data_addr[i] = point.colour;
+	if ((x < WIN_WIDTH) && (y < WIN_HEIGHT)
+	&& (x >= 0) && (y >= 0))
+	{
+		bytes = mlx->bits_per_pixel / 8;
+		i = bytes * (x + y * WIN_WIDTH);
+		if (i >= 0 && i < (WIN_HEIGHT * WIN_WIDTH * bytes))
+		{
+			mlx->data_addr[i] = colour;
+			mlx->data_addr[++i] = colour >> 8;
+			mlx->data_addr[++i] = colour >> 16;
+		}
+	}
 }

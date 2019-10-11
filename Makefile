@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/10 18:28:55 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/11 21:37:15 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ all: $(name)
 
 $(name): $(mlx) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) -L minilibx_macos $(lib_flags)
+	@$(cc) -O0 -g $(objects) -o $@ -L $(lib_archive) -L minilibx_macos $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -80,7 +80,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -O0 -g $(cflags) $(includes) -o $@ -c $<
 
 $(mlx):
 	@echo "\033[0;30m\033[1m--->Start compiling minilibx library\033[0m"

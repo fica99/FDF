@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/10 22:29:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/11 22:16:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	read_map(int fd, t_map *map)
 	coords = NULL;
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		parse_coords(line, &coords, map);
-		check_map_width(map->width, ++map->height);
+		parse_coords(line, &coords, &map->width, &map->height);
+		check_map_width(map->width, map->height);
 		ft_strdel(&line);
 	}
 	if (gnl == -1)
@@ -35,75 +35,71 @@ void	read_map(int fd, t_map *map)
 		pr_error("Malloc error");
 }
 
-void	parse_coords(char *line, t_point **coords, t_map *map)
+void	parse_coords(char *line, t_point **coords, int *width, int *height)
 {
 	int		i;
-	char	**str;
 
-	i = -1;
-	map->width = 0;
-	if (!(str = ft_strsplit(line, ' ')))
-		pr_error("Malloc error");
-	while (str[++i])
+	*width = 0;
+	i = 0;
+	while (line[i])
 	{
-		add_coords_2_arr(coords, str[i], map->width, map->height);
-		(*coords)[map->width * map->height].colour = parse_colour(str[i]);
-		ft_memdel((void**)&str[i]);
-		++map->width;
+		if (line[i] == ' ')
+		{
+			++i;
+			continue ;
+		}
+		add_coords_2_arr(coords, line + i, *width, *height);
+		(*coords)[*width * (*height)].colour = parse_colour(line, &i);
+		++(*width);
 	}
-	ft_memdel((void**)str);
+	++(*height);
 }
 
-int		parse_colour(char *str)
+int		parse_colour(char *str, int *i)
 {
-	int		i;
 	int		colour;
 	char	*s;
 	char	*base;
 
-	i = 0;
 	base = "0123456789ABCDEF0123456789abcdef";
 	colour = 0;
-	while (str[i] && ft_isdigit(str[i]))
-		++i;
-	if (str[i] && str[i] == ',' && str[i + 1] == '0' &&
-		(str[i + 2] == 'x' || str[i + 2] == 'X'))
-	{
-		i += 2;
-		while (str[++i])
-			if ((s = ft_strchr(base, str[i])))
-				colour = colour * 16 + ((s - base) % 16);
-			else
-				return (colour);
-	}
+	if (str[*i] == '-')
+		++(*i);
+	while (ft_isdigit(str[*i]))
+		++(*i);
+	if (str[*i] == ' ' || !str[*i])
+		return (colour);
+	if (!ft_strncmp(str + (*i), ",0x", 3) ||
+	!ft_strncmp(str + (*i), ",0X", 3))
+		(*i) += 2;
+	else
+		pr_error("Map error");
+	while ((s = ft_strchr(base, str[++(*i)])) && *s)
+		colour = colour * 16 + ((s - base) % 16);
+	if (!(str[*i] == ' ' || !str[*i]))
+		pr_error("Map error");
 	return (colour);
 }
 
 void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 {
-	int				z;
 	static int		i;
-	static int		m_size;
+	static int		malloc_size;
 	t_point			*copy;
 
-	if (!i)
+	if (malloc_size <= i)
 	{
-		i = 0;
-		m_size = 0;
-	}
-	if (m_size <= i)
-	{
-		if (!(copy = (t_point*)malloc(sizeof(t_point) * (m_size += D_CRDS_S))))
+		if (!(copy = (t_point*)malloc(sizeof(t_point) *
+		(malloc_size += DEF_COORDS_SIZE))))
 			pr_error("Malloc error");
 		copy = (t_point*)ft_memcpy((void*)copy, (void*)*coords,
 		i * sizeof(t_point));
 		ft_memdel((void**)coords);
 		*coords = copy;
 	}
-	z = ft_atoi(line);
 	(*coords)[i].x = width;
 	(*coords)[i].y = height;
-	(*coords)[i].z = z;
+	(*coords)[i].z = ft_atoi(line);
 	++i;
 }
 

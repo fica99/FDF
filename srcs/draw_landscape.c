@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/10 23:33:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/11 18:09:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_landscape(t_map *map, char *name)
 	map->proj_type = PARALLEL;
 	unset_angl(&map->angle_x, &map->angle_y);
 	map->scale = scale_map(map->width, map->height);
-	map->colour = WHITE;
+	map->colour = STANDART;
 	draw(map, &mlx);
 	fdf.mlx = mlx;
 	fdf.map = map;
@@ -39,6 +39,7 @@ void	draw(t_map *map, t_mlx_params *mlx)
 	map->max.y = INT_MIN;
 	map->min.x = INT_MAX;
 	map->min.y = INT_MAX;
+	draw_background(mlx);
 	i = -1;
 	size = map->width * map->height;
 	while (++i < size)
@@ -58,6 +59,17 @@ void	draw(t_map *map, t_mlx_params *mlx)
 	put_img(mlx, map, map->coords);
 }
 
+void	draw_background(t_mlx_params *mlx)
+{
+	int	*image;
+	int	i;
+
+	image = (int *)(mlx->data_addr);
+	i = -1;
+	while (++i < WIN_WIDTH * WIN_HEIGHT)
+		image[i] = BACKGROUND;
+}
+
 void	rotation_x(int *y, int *z, double angle_x)
 {
 	int				y_copy;
@@ -73,8 +85,8 @@ void	rotation_x(int *y, int *z, double angle_x)
 
 void	rotation_y(int *x, int *z, double angle_y)
 {
-	int				x_copy;
-	int				z_copy;
+	int	x_copy;
+	int	z_copy;
 
 	if (angle_y == 0.0)
 		return ;
