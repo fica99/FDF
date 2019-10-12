@@ -1,52 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 17:39:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/11 18:18:50 by aashara-         ###   ########.fr       */
+/*   Created: 2019/10/12 17:01:05 by aashara-          #+#    #+#             */
+/*   Updated: 2019/10/12 17:56:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	put_img(t_mlx_params *mlx, t_map *map, t_point *coords)
-{
-	draw_map(mlx, map, coords);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img_ptr,
-	0, 0);
-	print_options(map, mlx);
-}
-
-void	draw_map(t_mlx_params *mlx, t_map *map, t_point *coords)
-{
-	int		i;
-	t_point	p[2];
-
-	i = -1;
-	while (++i < map->height * map->width)
-	{
-		p[0].x = coords[i].x + map->offset.x;
-		p[0].y = coords[i].y + map->offset.y;
-		p[0].colour = coords[i].colour;
-		if ((i + 1) % map->width != 0)
-		{
-			p[1].x = coords[i + 1].x + map->offset.x;
-			p[1].y = coords[i + 1].y + map->offset.y;
-			p[1].colour = coords[i + 1].colour;
-			draw_line(mlx, p[0], p[1]);
-		}
-		if (i < (map->height - 1) * map->width)
-		{
-			p[1].x = coords[i + map->width].x + map->offset.x;
-			p[1].y = coords[i + map->width].y + map->offset.y;
-			p[1].colour = coords[i + map->width].colour;
-			draw_line(mlx, p[0], p[1]);
-		}
-	}
-}
 
 void	draw_line(t_mlx_params *mlx, t_point start, t_point end)
 {
@@ -92,6 +56,51 @@ void	put_pixel(t_mlx_params *mlx, int x, int y, int colour)
 			mlx->data_addr[i] = colour;
 			mlx->data_addr[++i] = colour >> 8;
 			mlx->data_addr[++i] = colour >> 16;
+			mlx->data_addr[i] = 0;
+			if (mlx->endian)
+			{
+				mlx->data_addr[i] = 0;
+				mlx->data_addr[++i] = colour >> 16;
+				mlx->data_addr[++i] = colour >> 8;
+				mlx->data_addr[i] = colour;
+			}
+
 		}
 	}
+}
+
+double	percent(int start, int end, int current)
+{
+	double placement;
+	double distance;
+
+	placement = current - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
+int		get_light(int start, int end, double percentage)
+{
+	return ((int)((1 - percentage) * start + percentage * end));
+}
+
+int		get_color(t_point current, t_point start, t_point end, t_point delta)
+{
+	int		red;
+	int		green;
+	int		blue;
+	double	percentage;
+
+	if (current.colour == end.colour)
+		return (current.colour);
+	if (delta.x > delta.y)
+		percentage = percent(start.x, end.x, current.x);
+	else
+		percentage = percent(start.y, end.y, current.y);
+	red = get_light((start.colour >> 16) & 0xFF, (end.colour >> 16) & 0xFF,
+	percentage);
+	green = get_light((start.colour >> 8) & 0xFF, (end.colour >> 8) & 0xFF,
+	percentage);
+	blue = get_light(start.colour & 0xFF, end.colour & 0xFF, percentage);
+	return ((red << 16) | (green << 8) | blue);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 15:12:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 18:04:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,22 @@ void	read_map(int fd, t_map *map)
 	coords = NULL;
 	while ((gnl = get_next_line(fd, &line)) > 0)
 	{
-		parse_coords(line, &coords, &map->width, &map->height);
+		parse_coords(line, &coords, map);
 		check_map_width(map->width, map->height);
 		ft_strdel(&line);
 	}
 	if (gnl == -1)
 		pr_error("Reading error");
-	if (!(map->inp_coords = coords))
+	if (!(map->inp_coords = transform_coords(coords, map->height,
+	map->width)))
 		pr_error("File error");
-	if (!(map->coords = (t_point*)malloc(sizeof(t_point) *
-	map->height * map->width)))
-		pr_error("Malloc error");
 }
 
-void	parse_coords(char *line, t_point **coords, int *width, int *height)
+void	parse_coords(char *line, t_point **coords, t_map *map)
 {
 	int		i;
 
-	*width = 0;
+	map->width = 0;
 	i = 0;
 	while (line[i])
 	{
@@ -48,11 +46,10 @@ void	parse_coords(char *line, t_point **coords, int *width, int *height)
 			++i;
 			continue ;
 		}
-		add_coords_2_arr(coords, line + i, *width, *height);
-		(*coords)[*width * (*height)].colour = parse_colour(line, &i);
-		++(*width);
+		add_coords_2_arr(coords, line, &i, map);
+		++map->width;
 	}
-	++(*height);
+	++map->height;
 }
 
 int		parse_colour(char *str, int *i)
@@ -68,7 +65,7 @@ int		parse_colour(char *str, int *i)
 	while (ft_isdigit(str[*i]))
 		++(*i);
 	if (ft_isspace(str[*i]) || !str[*i])
-		return (colour);
+		return (DEFAULT);
 	if (!ft_strncmp(str + (*i), ",0x", 3) ||
 	!ft_strncmp(str + (*i), ",0X", 3))
 		(*i) += 2;
@@ -81,7 +78,7 @@ int		parse_colour(char *str, int *i)
 	return (colour);
 }
 
-void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
+void	add_coords_2_arr(t_point **coords, char *line, int *index, t_map *map)
 {
 	static int		i;
 	static int		malloc_size;
@@ -97,9 +94,10 @@ void	add_coords_2_arr(t_point **coords, char *line, int width, int height)
 		ft_memdel((void**)coords);
 		*coords = copy;
 	}
-	(*coords)[i].x = width;
-	(*coords)[i].y = height;
-	(*coords)[i].z = ft_atoi(line);
+	(*coords)[i].x = map->width;
+	(*coords)[i].y = map->height;
+	(*coords)[i].z = ft_atoi(line + (*index));
+	(*coords)[i].colour = parse_colour(line, index);
 	++i;
 }
 

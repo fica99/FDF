@@ -38,7 +38,7 @@ Woorks only on MacOS\.
 * Key `D` to rotate right around the y axis\.
 * Key `Y` set yellow colour\.
 * Key `R` set red colour\.
-* Key `T` set standart colour\.
+* Key `T` set default colour\.
 
 ## Created with:
 

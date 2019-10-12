@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 16:32:39 by lbellona          #+#    #+#              #
-#    Updated: 2019/10/11 21:37:15 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/12 17:34:08 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,12 +26,13 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 srcs_files = fdf.c\
 		read_map.c\
-		draw_landscape.c\
-		draw.c\
-		params.c\
+		draw_space.c\
+		draw_line.c\
+		init.c\
 		handlers.c\
-		params_other.c\
-		linear_gradient.c\
+		rotation.c\
+		calc.c\
+		transform_coords.c\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -70,7 +71,7 @@ all: $(name)
 
 $(name): $(mlx) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) -O0 -g $(objects) -o $@ -L $(lib_archive) -L minilibx_macos $(lib_flags)
+	@$(cc) $(objects) -o $@ -L $(lib_archive) -L minilibx_macos $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -80,7 +81,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) -O0 -g $(cflags) $(includes) -o $@ -c $<
+	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
 $(mlx):
 	@echo "\033[0;30m\033[1m--->Start compiling minilibx library\033[0m"
