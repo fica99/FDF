@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/11 18:09:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 15:12:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	draw(t_map *map, t_mlx_params *mlx)
 	map->max.y = INT_MIN;
 	map->min.x = INT_MAX;
 	map->min.y = INT_MAX;
-	draw_background(mlx);
 	i = -1;
 	size = map->width * map->height;
 	while (++i < size)
@@ -57,17 +56,6 @@ void	draw(t_map *map, t_mlx_params *mlx)
 	}
 	get_offset(map);
 	put_img(mlx, map, map->coords);
-}
-
-void	draw_background(t_mlx_params *mlx)
-{
-	int	*image;
-	int	i;
-
-	image = (int *)(mlx->data_addr);
-	i = -1;
-	while (++i < WIN_WIDTH * WIN_HEIGHT)
-		image[i] = BACKGROUND;
 }
 
 void	rotation_x(int *y, int *z, double angle_x)

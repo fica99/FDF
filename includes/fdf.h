@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/11 22:16:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 15:25:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,19 @@
 # include <stdio.h>
 # include <limits.h>
 
-# define TRUE 1
+# define TRUE 10
+# define K_ESC 53
+# define K_W 13
+# define K_S 1
+# define K_A 0
+# define K_D 2
+# define K_Y 16
+# define K_R 15
+# define K_T 17
+# define K_PLUS 24
+# define K_MINUS 27
+# define K_P 35
+# define K_I 34
 # define FALSE 0
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1500
@@ -35,7 +47,6 @@
 # define STANDART 0XB0E0E6
 # define YELLOW 0XFFF000
 # define RED 0XFF0000
-# define BACKGROUND	0x1E1E1E
 # define DEFAULT_SCALE 0.5
 # define PI_32 M_PI_4 / 8
 # define PI_6 M_PI_2 / 3
@@ -104,7 +115,6 @@ void					check_map_width(int width, int height);
 */
 void					draw_landscape(t_map *map, char *name);
 void					draw(t_map *map, t_mlx_params *mlx);
-void					draw_background(t_mlx_params *mlx);
 void					rotation_x(int *y, int *z, double angle_x);
 void					rotation_y(int *x, int *z, double angle_y);
 /*

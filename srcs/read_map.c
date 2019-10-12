@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 20:27:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/11 22:16:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 15:12:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parse_coords(char *line, t_point **coords, int *width, int *height)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ')
+		if (ft_isspace(line[i]))
 		{
 			++i;
 			continue ;
@@ -67,7 +67,7 @@ int		parse_colour(char *str, int *i)
 		++(*i);
 	while (ft_isdigit(str[*i]))
 		++(*i);
-	if (str[*i] == ' ' || !str[*i])
+	if (ft_isspace(str[*i]) || !str[*i])
 		return (colour);
 	if (!ft_strncmp(str + (*i), ",0x", 3) ||
 	!ft_strncmp(str + (*i), ",0X", 3))
@@ -76,7 +76,7 @@ int		parse_colour(char *str, int *i)
 		pr_error("Map error");
 	while ((s = ft_strchr(base, str[++(*i)])) && *s)
 		colour = colour * 16 + ((s - base) % 16);
-	if (!(str[*i] == ' ' || !str[*i]))
+	if (!(ft_isspace(str[*i]) || !str[*i]))
 		pr_error("Map error");
 	return (colour);
 }
