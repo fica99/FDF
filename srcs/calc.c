@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:35:07 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 17:58:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:27:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ t_point	get_offset(void)
 
 void	unset_angl(double *angle_x, double *angle_y, double *angle_z)
 {
-	*angle_x = 0;
-	*angle_y = 0;
-	*angle_z = 0;
+	if (angle_x)
+		*angle_x = 0;
+	if (angle_y)
+		*angle_y = 0;
+	if (angle_z)
+		*angle_z = 0;
 }
 
 t_point	calc_coord(int x, int y, t_map *map)

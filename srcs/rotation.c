@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 16:55:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 18:08:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:36:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	rotation_z(int *x, int *y, double angle_z)
 		return ;
 	x_copy = *x;
 	y_copy = *y;
-	*x = x_copy * cos(angle_z) - y_copy * sin(angle_z);
-	*y = -x_copy * sin(angle_z) - y_copy * cos(angle_z);
+	*x = x_copy * cos(angle_z) + y_copy * sin(angle_z);
+	*y = -x_copy * sin(angle_z) + y_copy * cos(angle_z);
 }
 
 void	iso_proj(int *x, int *y, int z)
@@ -58,6 +58,6 @@ void	iso_proj(int *x, int *y, int z)
 
 	previous_x = *x;
 	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(PI_6);
-	*y = -z + (previous_x + previous_y) * sin(PI_6);
+	*x = (previous_x - previous_y) * cos(0.523599);
+	*y = -z + (previous_x + previous_y) * sin(0.523599);
 }

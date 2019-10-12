@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 17:33:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:36:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_space(t_map *map, char *name)
+void		draw_space(t_map *map, char *name)
 {
 	t_fdf			fdf;
 	t_mlx_params	mlx;
@@ -41,7 +41,7 @@ void		draw_map(t_mlx_params *mlx, t_map *map)
 				draw_line(mlx, calc_coord(x, y, map),
 				calc_coord(x + 1, y, map));
 			if (y != map->height - 1)
-				draw_line(mlx,  calc_coord(x, y, map),
+				draw_line(mlx, calc_coord(x, y, map),
 				calc_coord(x, y + 1, map));
 			++x;
 		}
@@ -52,7 +52,7 @@ void		draw_map(t_mlx_params *mlx, t_map *map)
 	print_options(map, mlx);
 }
 
-void	print_options(t_map *map, t_mlx_params *mlx)
+void		print_options(t_map *map, t_mlx_params *mlx)
 {
 	char	*nb;
 	char	s[100];
@@ -79,7 +79,7 @@ void	print_options(t_map *map, t_mlx_params *mlx)
 		DEFAULT, "Colour - DEFAULT");
 }
 
-void	print_keys(t_mlx_params *mlx)
+void		print_keys(t_mlx_params *mlx)
 {
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, DEFAULT,
 	"Key `W` - up rotation around the x axis");

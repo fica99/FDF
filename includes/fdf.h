@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 20:42:16 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/12 18:05:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:37:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@
 # define WIN_HEIGHT 1000
 # define WIN_WIDTH 1500
 # define DEF_COORDS_SIZE 5000000
-# define DEFAULT 0XB0E0E6
+# define DEFAULT 0XFFFFFF
 # define YELLOW 0XFFF000
 # define RED 0XFF0000
 # define DEFAULT_SCALE 0.5
 # define PI_32 M_PI_4 / 8
 # define PI_6 M_PI_2 / 3
+# define PI_2_3 M_PI * 2 / 3;
 
 typedef	enum			e_proj_type
 {
@@ -106,23 +107,27 @@ void					pr_error(char *err_msg);
 void					read_map(int fd, t_map *map);
 void					parse_coords(char *line, t_point **coords, t_map *map);
 int						parse_colour(char *str, int *i);
-void					add_coords_2_arr(t_point **coords, char *line, int *index, t_map *map);
+void					add_coords_2_arr(t_point **coords, char *line,
+int *index, t_map *map);
 void					check_map_width(int width, int height);
 /*
 **	init.c
 */
-void					init_start_params(t_mlx_params *mlx, t_map *map, char *name);
+void					init_start_params(t_mlx_params *mlx, t_map *map,
+char *name);
 void					init_win_params(t_mlx_params *mlx, char *name);
 /*
 **	transform_coords.c
 */
-t_point					*transform_coords(t_point *coords, int height, int width);
+t_point					*transform_coords(t_point *coords, int height,
+int width);
 /*
 **	calc.c
 */
 int						scale_map(int width, int height);
 t_point					get_offset(void);
-void					unset_angl(double *angle_x, double *angle_y, double *angle_z);
+void					unset_angl(double *angle_x, double *angle_y,
+double *angle_z);
 t_point					calc_coord(int x, int y, t_map *map);
 /*
 **	draw_space.c
@@ -141,14 +146,17 @@ void					iso_proj(int *x, int *y, int z);
 /*
 **	draw_line.c
 */
-void					draw_line(t_mlx_params *mlx, t_point start, t_point end);
+void					draw_line(t_mlx_params *mlx, t_point start,
+t_point end);
 void					put_pixel(t_mlx_params *mlx, int x, int y, int colour);
 double					percent(int start, int end, int current);
 int						get_light(int start, int end, double percentage);
-int						get_color(t_point current, t_point start, t_point end, t_point delta);
+int						get_color(t_point current, t_point start, t_point end,
+t_point delta);
 /*
 **	handlers.c
 */
 void					close_window(void);
 void					key_handler(int key, t_fdf *fdf);
+void					change_colour(t_map *map, int key);
 #endif

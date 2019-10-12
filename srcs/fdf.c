@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 21:55:47 by lbellona          #+#    #+#             */
-/*   Updated: 2019/10/12 16:40:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:36:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int			main(int argc, char **argv)
 	if ((close(fd)) < 0)
 		pr_error("Close error");
 	draw_space(&map, name);
-	exit (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
