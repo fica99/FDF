@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 22:15:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 20:36:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 19:44:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,23 @@ void		print_keys(t_mlx_params *mlx)
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 70, DEFAULT,
 	"Key `D` - right rotation around the y axis");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 90, DEFAULT,
-	"Key `I` - change projection to isometric");
+	"Key `Q` - left rotation around the z axis");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 110, DEFAULT,
-	"Key `P` - change projection to parallel");
+	"Key `E` - right rotation around the z axis");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 130, DEFAULT,
-	"Key `+` - increase map");
+	"Key `I` - change projection to isometric");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 150, DEFAULT,
-	"Key `-` - decrease map");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 150, DEFAULT,
-	"Key `-` - decrease map");
+	"Key `P` - change projection to parallel");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 170, DEFAULT,
-	"Key `R` - set red colour");
+	"Key `+` - increase map");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 190, DEFAULT,
-	"Key `Y` - set yellow colour");
+	"Key `-` - decrease map");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 210, DEFAULT,
+	"Key `-` - decrease map");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 230, DEFAULT,
+	"Key `R` - set red colour");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 250, DEFAULT,
+	"Key `Y` - set yellow colour");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 270, DEFAULT,
 	"Key `T` - set default colour");
 }
