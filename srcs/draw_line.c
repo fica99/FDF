@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:01:05 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/12 20:36:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:46:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,19 @@ void	put_pixel(t_mlx_params *mlx, int x, int y, int colour)
 		i = bytes * (x + y * WIN_WIDTH);
 		if (i >= 0 && i < (WIN_HEIGHT * WIN_WIDTH * bytes))
 		{
-			mlx->data_addr[i] = colour;
-			mlx->data_addr[++i] = colour >> 8;
-			mlx->data_addr[++i] = colour >> 16;
-			mlx->data_addr[++i] = 0;
 			if (mlx->endian)
 			{
 				mlx->data_addr[i] = 0;
 				mlx->data_addr[++i] = colour >> 16;
 				mlx->data_addr[++i] = colour >> 8;
+				mlx->data_addr[++i] = colour;
+			}
+			else
+			{
 				mlx->data_addr[i] = colour;
+				mlx->data_addr[++i] = colour >> 8;
+				mlx->data_addr[++i] = colour >> 16;
+				mlx->data_addr[++i] = 0;
 			}
 		}
 	}
