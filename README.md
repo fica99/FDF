@@ -1,10 +1,17 @@
 # FDF
-## Desctiption
+## Description
 
 School 42 project in graphic branch\. The representation in 3D of a landscape\.
 Full description in [subject file](https://cdn.intra.42.fr/pdf/pdf/1803/fdf.en.pdf "school project")\.
 
+
+![Example](https://i.ibb.co/vzz1YHc/Screen-Shot-2020-11-13-at-2-05-48-PM.png)
+
+
 ## Compilation
+
+To generate an executable for this project run `make` in the root of the project directory.
+This project will only work on MacOS El Capitan/Sierra/HighSierra(maybe) and even then, no promises!
 
 * `make` \- executable file compilation\.
 * `make all` \- same as `make`\.
@@ -20,11 +27,30 @@ Full description in [subject file](https://cdn.intra.42.fr/pdf/pdf/1803/fdf.en.p
 
 ## Usage
 
-Woorks only on MacOS\.
+```
+$> make
+$> ./fdf [test_maps/filename>]
+```
 
->make
+A valid fdf file will consist of a matrix of number delimited by spaces. Each number's position represents an (x , y) coordinate with the value of the number itself representing a height (z).
 
->./fdf \test_maps/<filename\>
+Valid fdf files will always have the same number of elements per row.
+
+Example:
+```
+$> cat -e test_maps/42.fdf
+0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0$
+0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0$
+0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0$
+0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0$
+0  0 10 10  0  0 10 10  0  0  0  0  0  0  0 10 10  0  0$
+0  0 10 10 10 10 10 10  0  0  0  0 10 10 10 10  0  0  0$
+0  0  0 10 10 10 10 10  0  0  0 10 10  0  0  0  0  0  0$
+0  0  0  0  0  0 10 10  0  0  0 10 10  0  0  0  0  0  0$
+0  0  0  0  0  0 10 10  0  0  0 10 10 10 10 10 10  0  0$
+0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0$
+0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0$
+```
 
 ## Features
 
@@ -42,6 +68,3 @@ Woorks only on MacOS\.
 * Key `R` set red colour\.
 * Key `T` set default colour\.
 
-## Created with:
-
-* MiniLibX library\.
