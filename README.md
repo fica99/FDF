@@ -1,4 +1,4 @@
-# fdf
+# FDF
 ## Desctiption
 
 School 42 project in graphic branch\. The representation in 3D of a landscape\.
@@ -24,7 +24,7 @@ Woorks only on MacOS\.
 
 >make
 
->./fdf \<filename\>
+>./fdf \test_maps/<filename\>
 
 ## Features
 
