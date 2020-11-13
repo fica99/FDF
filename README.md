@@ -1,4 +1,4 @@
-# FDF
+# FdF
 ## Description
 
 School 42 project in graphic branch\. The representation in 3D of a landscape\.
